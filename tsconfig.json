@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "outDir": "./src/chess/dist"
+    },
+    "files": [
+        "./src/chess/Bishop.ts",
+        "./src/chess/Board.ts",
+        "./src/chess/Direction.ts",
+        "./src/chess/DirectionAngle.ts",
+        "src/chess/Game.ts",
+        "./src/chess/King.ts",
+        "./src/chess/Knight.ts",
+        "./src/chess/Pawn.ts",
+        "./src/chess/Piece.ts",
+        "./src/chess/Player.ts",
+        "./src/chess/Queen.ts",
+        "./src/chess/Rook.ts",
+        "./src/chess/Tile.ts",
+        "./src/chess/index.ts",
+    ]
+}
