@@ -201,7 +201,7 @@ async function botstart(token){
                         test.start = true;
                         channels.set(test.name, test)
 
-                        console.log(channels.get(test.name));
+                        message.channel.send(`**Players**\nWhite: <@!${test.requestee}>\nBlack: <@!${test.requestor}>`)
 
                         games.push(new chess.Game(eventEmitter, message.channel.name));
                         games[games.length - 1].start(printBoard, test.requestee, test.requestor);
@@ -215,7 +215,7 @@ async function botstart(token){
                 }
             } else if (command.startsWith("no")) {
                 if (channels.has(message.channel.name) && channels.get(message.channel.name).requestee == message.author.id) {
-                    if (!channels.get(message.channel.name)) {
+                    if (!channels.get(message.channel.start)) {
                         eventEmitter.emit('channel_delete', message.channel);
                         eventEmitter.emit('end', message.channel.name);
                     } else {
