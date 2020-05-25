@@ -17,8 +17,8 @@ var ct = 0;
 
 async function botstart(token){
     bot.login(token);
-
-    bot.on('ready', ()=>{
+    
+    bot.on('ready', () => {
         console.log('INFO Chess bot initialized.');
     });
 
@@ -185,15 +185,19 @@ async function botstart(token){
                     message.reply("\"!chess play\" must be directed at a user by using \"!chess play @user_name\".");
                 }
             } else if (command.startsWith("end-all")) {
-                eventEmitter.emit('kill');
-                channels.forEach(cl => {
-                    var temp_channel = message.guild.channels.find(c => c.name == `${cl.name}`);
-                    temp_channel.delete();
-                    console.log(`INFO ${cl.name} has been deleted.`);
-                });
-                channels.clear();
-                message.reply("all chess games have been killed, and channels deleted.");
-                console.log('WARN all chess games killed, and channels deleted.');
+                if (message.member.hasPermission("ADMINISTRATOR") || message.member.hasPermission("MANAGE_CHANNELS") || message.member.hasPermission("MANAGE_ROLES_OR_PERMISSIONS") ) {
+                    eventEmitter.emit('kill'); 
+                    channels.forEach(cl => {
+                        var temp_channel = message.guild.channels.find(c => c.name == `${cl.name}`);
+                        temp_channel.delete();
+                        console.log(`INFO ${cl.name} has been deleted.`);
+                    });
+                    channels.clear();
+                    message.reply("all chess games have been killed, and channels deleted.");
+                    console.log('WARN all chess games killed, and channels deleted.');
+                } else {
+                    message.reply("insuffecient permissions.");
+                }
             } else if (command.startsWith("yes")) {
                 if (channels.has(message.channel.name) && channels.get(message.channel.name).requestee == message.author.id) {
                     if (!channels.get(message.channel.start)) {
@@ -270,7 +274,7 @@ async function botstart(token){
         for(let i = 0; i < games.length; i++){    
             if(games[i].gameEventString == channel_name) {
                 eventEmitter.removeAllListeners(games[i].gameEventString)
-                console.log(`INFO  ${games[i].gameEventString} over.`);
+                console.log(`INFO ${games[i].gameEventString} over.`);
                 delete games[i];
                 games.splice(i, 1);
             }
