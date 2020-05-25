@@ -232,7 +232,7 @@ async function botstart(token){
                 message.channel.send(help_message());
 
             } else if (command.startsWith("ff")) {
-                if (channels.has(message.channel.name)) {
+                if (channels.has(message.channel.name) && ( message.author.id == channels.get(message.channel.name).requestee ||  message.author.id == channels.get(message.channel.name).requestor ) ) {
                     var name = message.author.username;
                     message.channel.send(`${name} has forfeited the match.`).then(setTimeout(() => {
                         eventEmitter.emit('channel_delete', message.channel);
